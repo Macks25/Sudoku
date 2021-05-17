@@ -89,3 +89,22 @@ var sodukboard = {
 
 
 console.log(sodukboard.box.box(8));
+
+
+var divmainEL = document.querySelectorAll(".divinmain")
+
+let i = 1
+divmainEL.forEach(element => {
+    
+let htmlstring = ""
+    sodukboard.box.box(i).flat().forEach(el => {
+        let i = document.createElement("p")
+        i.innerText = el
+        console.log(i.outerHTML)
+        htmlstring += i.outerHTML
+    });
+
+    element.innerHTML = htmlstring
+    i++
+
+});
