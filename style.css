@@ -1,0 +1,26 @@
+
+
+#main{
+
+    height: 600px;
+    width: 600px;
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+   grid-gap:10px;
+   
+}
+
+.divinmain{
+    display:grid;
+    width: 194px;
+    height:194px;
+    background-color: rgb(126, 163, 172);
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 10px;
+    
+}
+
+.divinmain p{
+    justify-self: center;
+    
+}
