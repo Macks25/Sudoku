@@ -4,11 +4,11 @@
 
 .divinmain, .divineingabe{
     display:grid;
-    width: 194px;
-    height:194px;
+    width: 100%;
+    
     background-color: rgb(126, 163, 172);
     grid-template-columns: repeat(3, 1fr);
-    grid-gap: 10px;
+    grid-gap: 1vmin;
     
 }
 .divineingabe{
@@ -17,25 +17,46 @@
 
 .divinmain p{
     justify-self: center;
-
+    font-size: 2.5vmin;
     
 }
 
-
+#button1{
+    justify-self: center;
+    align-self: center;
+    font-size: 2.5vmin;
+}
 .eingabefeld, .ausgabefeld{
 
-    height: 600px;
-    width: 600px;
+    height: 80vmin;
+    width: 80vmin;
     display:grid;
     grid-template-columns: repeat(3, 1fr);
-   grid-gap:10px;
+   grid-gap:1vmin;
    
 }
 
 .eingabefeld input{
     justify-self: center;
     align-self: center;
-    height:40px;
-    width: 40px;
+   
+    width: 5vmin;
+    height: 5vmin;
+    font-size: 2.5vmin;
+    
+}
+.wrapper {
+    display: grid;
+    grid-template-columns: 5fr 1fr 5fr;
+    grid-template-rows: 1fr;
+    justify-items: center;
 }
 
+
+@media only screen and (max-width: 600px), (max-aspect-ratio: 1) {
+    .wrapper {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr auto 1fr;
+    }
+  }
