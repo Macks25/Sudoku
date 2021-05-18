@@ -81,7 +81,37 @@ var sodukboard = {
 
       return x + 3 * y;
     },
+    postionbox: function (number){
 
+      let row, colum
+
+
+      switch (number % 3) {
+        case 1:
+        colum = 0
+          break;
+        case 2:
+          colum = 3
+          break;
+        case 0:
+          colum = 6
+          break;
+      }
+
+      switch (Math.ceil(number/3)) {
+        case 1:
+          row = 0
+          break;
+        case 2:
+          row = 3
+          break;
+        case 3:
+          row = 6
+          break;
+      }
+
+      return [row,colum]
+    },
     setnum: function (row, colum, num) {
       this.grid[row][colum] = num;
     },
@@ -89,7 +119,7 @@ var sodukboard = {
 };
 
 console.log(sodukboard.box.box(8));
-display();
+
 function display() {
   var divmainEL = document.querySelectorAll(".divinmain");
 
@@ -179,9 +209,49 @@ function ladeneingaben() {
     i++;
   });
 }
+
+function eingabeningrid(){
+  var eingaben = document.querySelectorAll(".divineingabe");
+
+  let i = 1;
+  eingaben.forEach((element) => {
+    let position = sodukboard.box.postionbox(i);
+    console.log(`position for ${i}: ${position}`);
+    let children = element.children;
+
+    let y = 0;
+
+    for (let k = 0; k <= 2; k++) {
+      for (let q = 0; q <= 2; q++) {
+        let num = children[y].value;
+
+        try {
+          num = parseInt(num)
+        } catch (error) {}
+
+        if (num == 0 || isNaN(num) || num<1 || num>9) {
+          num = X;
+        }
+        sodukboard.box.setnum(position[0] + k, position[1] + q, num);
+        y++;
+      }
+    }
+
+    i++;
+  });
+}
+
+
+
+
+
+
+
 ladeneingaben()
 document.getElementById("button1").addEventListener("click", () =>{
 
+
+  eingabeningrid()
   solver()
   display()
 })
