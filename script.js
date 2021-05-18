@@ -1,6 +1,5 @@
 var X = "X";
 
-
 var sodukboard = {
   with: 9,
   height: this.width,
@@ -36,75 +35,121 @@ var sodukboard = {
       return "";
     },
 
+    box: function (x) {
+      if (x >= 1 && x <= 9) {
+        let cornerrow, cornercolumne;
 
-    box: function (x){
+        let output = [[], [], []];
 
-        if (x >= 1 && x <= 9) {
+        switch (x % 3) {
+          case 1:
+            cornercolumne = 0;
+            break;
+          case 2:
+            cornercolumne = 3;
+            break;
+          case 0:
+            cornercolumne = 6;
+        }
 
-            let cornerrow, cornercolumne
+        switch (Math.ceil(x / 3)) {
+          case 1:
+            cornerrow = 0;
+            break;
+          case 2:
+            cornerrow = 3;
+            break;
+          case 3:
+            cornerrow = 6;
+        }
 
-            let output =[[],[],[]]
+        console.log(`row: ${cornerrow}, columne: ${cornercolumne}`);
 
+        for (let i = 0; i <= 2; i++) {
+          for (let y = 0; y <= 2; y++) {
+            output[y][i] = this.row(cornerrow + y)[cornercolumne + i];
+          }
+        }
 
-            
+        return output;
+      }
+    },
+    boxnumber: function (row, colum) {
+      let x = Math.floor(colum / 3) + 1;
 
-                switch(x%3){
-                    case 1:
-                        cornercolumne = 0
-                        break;
-                    case 2:
-                        cornercolumne = 3
-                        break;
-                    case 0:
-                        cornercolumne = 6
-                }
+      let y = Math.floor(row / 3);
 
-                switch(Math.ceil(x/3)){
-                    case 1:
-                        cornerrow = 0
-                        break;
-                    case 2:
-                        cornerrow = 3
-                        break;
-                    case 3:
-                        cornerrow = 6
-                }
-                
-                
-                console.log(`row: ${cornerrow}, columne: ${cornercolumne}`);
-                
-                for(let i=0;i<=2;i++){
-                    for(let y=0;y<=2;y++){
-                    
-                        output[y][i] = this.row(cornerrow+y)[cornercolumne+i]
-                }
-            }
-                    
-            return output
-    }
-  }
-}
-}
+      return x + 3 * y;
+    },
 
-
+    setnum: function (row, colum, num) {
+      this.grid[row][colum] = num;
+    },
+  },
+};
 
 console.log(sodukboard.box.box(8));
+display();
+function display() {
+  var divmainEL = document.querySelectorAll(".divinmain");
 
+  let i = 1;
+  divmainEL.forEach((element) => {
+    let htmlstring = "";
+    sodukboard.box
+      .box(i)
+      .flat()
+      .forEach((el) => {
+        let i = document.createElement("p");
+        i.innerText = el;
 
-var divmainEL = document.querySelectorAll(".divinmain")
+        htmlstring += i.outerHTML;
+      });
 
-let i = 1
-divmainEL.forEach(element => {
-    
-let htmlstring = ""
-    sodukboard.box.box(i).flat().forEach(el => {
-        let i = document.createElement("p")
-        i.innerText = el
-        console.log(i.outerHTML)
-        htmlstring += i.outerHTML
-    });
+    element.innerHTML = htmlstring;
+    i++;
+  });
+}
 
-    element.innerHTML = htmlstring
-    i++
+var box = sodukboard.box;
 
-});
+function isvalid(row, colum, number) {
+  if (box.columne(colum).includes(number)) {
+    return false;
+  }
+
+  if (box.row(row).includes(number)) {
+    return false;
+  }
+
+  let boxnum = box.boxnumber(row, colum);
+
+  if (box.box(boxnum).flat().includes(number)) {
+    return false;
+  }
+
+  console.log(`${number} Valid in row: ${row}, colum: ${colum}`);
+  return true;
+}
+
+function solver() {
+  for (let i = 0; i <= 8; i++) {
+    for (let j = 0; j <= 8; j++) {
+      if (box.grid[i][j] == X) {
+        for (let num = 1; num <= 9; num++) {
+          if (isvalid(i, j, num)) {
+            box.setnum(i, j, num);
+            console.log(box.grid);
+            if (solver()) {
+              return true;
+            } else {
+              box.setnum(i, j, X);
+            }
+          }
+        }
+        return false;
+      }
+    }
+  }
+  return true;
+}
