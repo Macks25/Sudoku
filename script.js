@@ -163,17 +163,17 @@ function isvalid(row, colum, number) {
 }
 
 function solver() {
-  for (let i = 0; i <= 8; i++) {
-    for (let j = 0; j <= 8; j++) {
-      if (box.grid[i][j] == X) {
+  for (let rownum = 0; rownum <= 8; rownum++) {
+    for (let columnum = 0; columnum <= 8; columnum++) {
+      if (box.grid[rownum][columnum] == X) {
         for (let num = 1; num <= 9; num++) {
-          if (isvalid(i, j, num)) {
-            box.setnum(i, j, num);
+          if (isvalid(rownum, columnum, num)) {
+            box.setnum(rownum, columnum, num);
             console.log(box.grid);
             if (solver()) {
               return true;
             } else {
-              box.setnum(i, j, X);
+              box.setnum(rownum, columnum, X);
             }
           }
         }
