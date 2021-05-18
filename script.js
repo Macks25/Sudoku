@@ -153,3 +153,35 @@ function solver() {
   }
   return true;
 }
+
+function ladeneingaben() {
+  var divmainEL = document.querySelectorAll(".divineingabe");
+
+  let i = 1;
+  divmainEL.forEach((element) => {
+    let htmlstring = "";
+    sodukboard.box
+      .box(i)
+      .flat()
+      .forEach((el) => {
+        let i = document.createElement("input");
+        i.setAttribute("type","number")
+        i.setAttribute("min","0")
+        i.setAttribute("max","9")
+
+        i.setAttribute("value","0")
+        i.innerText = el;
+
+        htmlstring += i.outerHTML;
+      });
+
+    element.innerHTML = htmlstring;
+    i++;
+  });
+}
+ladeneingaben()
+document.getElementById("button1").addEventListener("click", () =>{
+
+  solver()
+  display()
+})

@@ -1,6 +1,28 @@
 
 
-#main{
+
+
+.divinmain, .divineingabe{
+    display:grid;
+    width: 194px;
+    height:194px;
+    background-color: rgb(126, 163, 172);
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 10px;
+    
+}
+.divineingabe{
+    background-color: rgb(172, 126, 126);
+}
+
+.divinmain p{
+    justify-self: center;
+
+    
+}
+
+
+.eingabefeld, .ausgabefeld{
 
     height: 600px;
     width: 600px;
@@ -10,17 +32,10 @@
    
 }
 
-.divinmain{
-    display:grid;
-    width: 194px;
-    height:194px;
-    background-color: rgb(126, 163, 172);
-    grid-template-columns: repeat(3, 1fr);
-    grid-gap: 10px;
-    
+.eingabefeld input{
+    justify-self: center;
+    align-self: center;
+    height:40px;
+    width: 40px;
 }
 
-.divinmain p{
-    justify-self: center;
-    
-}
